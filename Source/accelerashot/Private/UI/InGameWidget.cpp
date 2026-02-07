@@ -3,18 +3,52 @@
 
 #include "UI/InGameWidget.h"
 
+#include "Game/LevelGameState.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetTextLibrary.h"
 
 void UInGameWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 	
 	RefToPlayer = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+	
+	if (RefToPlayer)
+	{
+		// AddDynamic OnAmmoChanged
+	}
+
+	if (ALevelGameState* GameState = Cast<ALevelGameState>(GetWorld()->GetGameState()))
+	{
+		GameState->OnTimeChanged.AddDynamic(this, &UInGameWidget::OnTimeStampChanged);
+		
+		OnTimeStampChanged(0.0f);
+	}
 }
 
 void UInGameWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
+}
+
+void UInGameWidget::OnAmmoChanged(int32 Current, int32 Max)
+{
+	AmmoText->SetText(FText::Format(
+			FText::FromString("{0} / {1}"),
+			FText::AsNumber(Current),
+			FText::AsNumber(Max)
+		));
+}
+
+void UInGameWidget::OnTimeStampChanged(float TimeStamp)
+{
+	FTimespan CurrTime = FTimespan::FromSeconds(TimeStamp);
 	
-	
+	TimeText->SetText(FText::Format(
+			FText::FromString("{H} / {M} / {S} / {mi}"),
+			UKismetTextLibrary::Conv_IntToText(CurrTime.GetHours(), false, true, 2),
+			UKismetTextLibrary::Conv_IntToText(CurrTime.GetMinutes(), false, true, 2),
+			UKismetTextLibrary::Conv_IntToText(CurrTime.GetSeconds(), false, true, 2),
+			UKismetTextLibrary::Conv_IntToText(CurrTime.GetFractionMilli(), false, true, 2)
+		));
 }

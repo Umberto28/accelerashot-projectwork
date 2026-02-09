@@ -6,9 +6,7 @@
 #include "Kismet/GameplayStatics.h"
 
 ALevelGameState::ALevelGameState()
-{
-	static ConstructorHelpers::FClassFinder<AActor> FTargetClass(TEXT("/Game/Development/Davide/BP_BaseTarget.BP_BaseTarget"));
-	
+{	
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = false;
 	PrimaryActorTick.TickInterval = 0.02f;

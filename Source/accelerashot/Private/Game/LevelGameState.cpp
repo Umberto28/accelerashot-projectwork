@@ -9,7 +9,7 @@ ALevelGameState::ALevelGameState()
 {	
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = false;
-	PrimaryActorTick.TickInterval = 0.02f;
+	PrimaryActorTick.TickInterval = 0.01f;
 }
 
 void ALevelGameState::Tick(float DeltaSeconds)

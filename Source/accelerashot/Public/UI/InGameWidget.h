@@ -17,6 +17,7 @@ class ACCELERASHOT_API UInGameWidget : public UUserWidget
 	GENERATED_BODY()
 
 protected:
+	/* ----- Properties ----- */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
 	UTextBlock* TimeText;
 	
@@ -30,6 +31,7 @@ protected:
 	ACharacter* RefToPlayer;
 	
 public:
+	/* ----- Functions ----- */	
 	virtual void NativeConstruct() override;
 	
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;

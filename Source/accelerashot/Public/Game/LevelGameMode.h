@@ -16,14 +16,16 @@ class ACCELERASHOT_API ALevelGameMode : public AGameModeBase
 	GENERATED_BODY()
 	
 protected:
-	// Properties
+	/* ----- Properties ----- */
 	UPROPERTY()
 	ALevelGameState* CurrGameState;
 	
-	// Functions
+	/* ----- Functions ----- */	
 	virtual void BeginPlay() override;
 	
 public:
-	// Functions
+	/* ----- Properties ----- */
+	
+	/* ----- Functions ----- */	
 	void OnLevelCompleted();
 };

@@ -21,7 +21,7 @@ public:
 	ALevelGameState();
 	
 protected:
-	// Properties
+	/* ----- Properties ----- */
 	UPROPERTY()
 	float TimeStamp;
 	
@@ -41,9 +41,9 @@ protected:
 	TArray<AActor*> Targets;
 	
 public:
-	// Properties
+	/* ----- Properties ----- */
 	
-	// Functions
+	/* ----- Functions ----- */	
 	virtual void Tick(float DeltaSeconds) override;
 	
 	UFUNCTION(BlueprintCallable)

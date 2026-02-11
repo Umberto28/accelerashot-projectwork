@@ -45,7 +45,7 @@ void UInGameWidget::OnTimeStampChanged(float TimeStamp)
 	FTimespan CurrTime = FTimespan::FromSeconds(TimeStamp);
 	
 	TimeText->SetText(FText::Format(
-			FText::FromString("{0} : {1} : {2} : {3}"),
+			FText::FromString("{0}:{1}:{2}:{3}"),
 			UKismetTextLibrary::Conv_IntToText(CurrTime.GetHours(), false, true, 2, 2),
 			UKismetTextLibrary::Conv_IntToText(CurrTime.GetMinutes(), false, true, 2, 2),
 			UKismetTextLibrary::Conv_IntToText(CurrTime.GetSeconds(), false, true, 2, 2),

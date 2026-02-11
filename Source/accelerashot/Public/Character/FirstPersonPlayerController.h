@@ -18,9 +18,9 @@ public:
 	AFirstPersonPlayerController();
 	
 protected:
-	// Properties
+	/* ----- Properties ----- */
 	
-	// Functions	
+	/* ----- Functions ----- */	
 	virtual void BeginPlay() override;
 	
 	void ShowHUD() const;
@@ -28,12 +28,13 @@ protected:
 	void HideHUD() const;
 
 public:
-	// Properties
+	/* ----- Properties ----- */
 	UPROPERTY()
 	UUserWidget* WidgetHUD;
 	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> WidgetHUDClass;
 	
+	/* ----- Functions ----- */	
 	virtual void Tick(float DeltaTime) override;
 };

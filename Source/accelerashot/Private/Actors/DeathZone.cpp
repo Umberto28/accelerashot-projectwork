@@ -39,6 +39,5 @@ void ADeathZone::OnDeathBoxOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 void ADeathZone::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 

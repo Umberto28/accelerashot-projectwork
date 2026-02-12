@@ -22,5 +22,5 @@ void ALevelGameMode::BeginPlay()
 
 void ALevelGameMode::OnLevelCompleted()
 {
-	
+	CurrGameState->StopTimer();
 }

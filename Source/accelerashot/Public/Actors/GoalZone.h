@@ -5,16 +5,16 @@
 #include "CoreMinimal.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/Actor.h"
-#include "DeathZone.generated.h"
+#include "GoalZone.generated.h"
 
 UCLASS()
-class ACCELERASHOT_API ADeathZone : public AActor
+class ACCELERASHOT_API AGoalZone : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ADeathZone();
+	AGoalZone();
 
 protected:
 	/* ----- Properties ----- */
@@ -22,7 +22,7 @@ protected:
 	USceneComponent* RootScene;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	UBoxComponent* DeathBox;	
+	UBoxComponent* GoalBox;
 	
 	/* ----- Functions ----- */
 	virtual void BeginPlay() override;
@@ -32,7 +32,7 @@ public:
 	
 	/* ----- Functions ----- */
 	UFUNCTION()
-	void OnDeathBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	void OnGoalBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	
 	virtual void Tick(float DeltaTime) override;
 

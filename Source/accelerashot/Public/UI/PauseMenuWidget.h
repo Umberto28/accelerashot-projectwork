@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
+#include "Game/LevelGameMode.h"
 #include "PauseMenuWidget.generated.h"
 
 /**
@@ -17,6 +18,7 @@ class ACCELERASHOT_API UPauseMenuWidget : public UUserWidget
 	
 protected:
 	/* ----- Properties ----- */
+	// UI properties
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(BindWidget))
 	UButton* ResumeButton;
 	
@@ -28,4 +30,30 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(BindWidget))
 	UButton* QuitButton;
+	
+	// Class properties
+	UPROPERTY()
+	ALevelGameMode* GameModeRef;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	FName MainMenuLevelName;
+	
+	/* ----- Functions ----- */
+	virtual void NativeConstruct() override;
+	
+public:
+	/* ----- Properties ----- */
+	
+	/* ----- Functions ----- */
+	UFUNCTION(BlueprintCallable)
+	void OnResumeClicked();
+	
+	UFUNCTION(BlueprintCallable)
+	void OnRestartClicked();
+	
+	UFUNCTION(BlueprintCallable)
+	void OnOptionsClicked();
+	
+	UFUNCTION(BlueprintCallable)
+	void OnQuitClicked();
 };

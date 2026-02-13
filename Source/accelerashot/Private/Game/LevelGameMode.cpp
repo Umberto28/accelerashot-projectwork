@@ -23,4 +23,6 @@ void ALevelGameMode::BeginPlay()
 void ALevelGameMode::OnLevelCompleted()
 {
 	CurrGameState->StopTimer();
+	
+	// Camera change, Score calculation, UI, deactivate input, show mouse cursor
 }

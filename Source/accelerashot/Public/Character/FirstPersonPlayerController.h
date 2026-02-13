@@ -19,22 +19,32 @@ public:
 	
 protected:
 	/* ----- Properties ----- */
+	UPROPERTY(EditDefaultsOnly, Category="WidgetUI")
+	TSubclassOf<UUserWidget> WidgetHUDClass;
+	
+	UPROPERTY(EditDefaultsOnly, Category="WidgetUI")
+	TSubclassOf<UUserWidget> WidgetPauseClass;
 	
 	/* ----- Functions ----- */	
 	virtual void BeginPlay() override;
 	
 	void ShowHUD() const;
-	
 	void HideHUD() const;
+	
+	void ShowPause() const;
+	void HidePause() const;
 
 public:
 	/* ----- Properties ----- */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	UUserWidget* WidgetHUD;
 	
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UUserWidget> WidgetHUDClass;
+	UPROPERTY(BlueprintReadOnly)
+	UUserWidget* WidgetPause;
 	
 	/* ----- Functions ----- */	
 	virtual void Tick(float DeltaTime) override;
+	
+	UFUNCTION(BlueprintCallable)
+	void OnGamePaused();
 };

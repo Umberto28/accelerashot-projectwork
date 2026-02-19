@@ -10,6 +10,8 @@
 /**
  * 
  */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnTargetsReset);
+
 UCLASS()
 class ACCELERASHOT_API ALevelGameMode : public AGameModeBase
 {
@@ -25,7 +27,11 @@ protected:
 	
 public:
 	/* ----- Properties ----- */
+	UPROPERTY(BlueprintAssignable, Category = "Level Events")
+	FOnTargetsReset OnTargetsReset;
 	
 	/* ----- Functions ----- */	
+	void OnLevelRestart();
+	
 	void OnLevelCompleted();
 };

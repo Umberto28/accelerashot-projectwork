@@ -42,20 +42,21 @@ protected:
 	
 public:
 	/* ----- Properties ----- */
-	
-	/* ----- Functions ----- */	
-	virtual void Tick(float DeltaSeconds) override;
-	
-	UFUNCTION(BlueprintCallable)
-	void InitLevel();
-	
 	UPROPERTY(BlueprintAssignable, Category = "Level Events")
 	FOnTimeChanged OnTimeChanged;
 
 	UPROPERTY(BlueprintAssignable, Category = "Level Events")
 	FOnScoreChanged OnScoreChanged;
 	
+	/* ----- Functions ----- */	
+	virtual void Tick(float DeltaSeconds) override;
+	
+	UFUNCTION(BlueprintCallable)
+	void InitLevel();
+		
 	void StartTimer();
 
 	void StopTimer();
+	
+	void ResetHitTargets();
 };

@@ -12,12 +12,22 @@ void ALevelGameMode::BeginPlay()
 	
 	// Initialize the level (Game state with stats, UI)
 	CurrGameState = Cast<ALevelGameState>(GetWorld()->GetGameState());
-	if (CurrGameState) CurrGameState->InitLevel();
+	if (CurrGameState)
+	{
+		CurrGameState->InitLevel();
+		CurrGameState->StartTimer();
+	}
 	
 	// Cutscene with level overview (?)
 	
 	// Countdown
 	
+}
+
+void ALevelGameMode::OnLevelRestart()
+{
+	CurrGameState->ResetHitTargets();
+	OnTargetsReset.Broadcast();
 }
 
 void ALevelGameMode::OnLevelCompleted()

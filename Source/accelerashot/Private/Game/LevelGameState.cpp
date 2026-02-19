@@ -44,3 +44,8 @@ void ALevelGameState::StopTimer()
 {
 	SetActorTickEnabled(false);
 }
+
+void ALevelGameState::ResetHitTargets()
+{
+	HitTarget = 0;
+}

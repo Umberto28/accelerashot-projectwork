@@ -26,7 +26,9 @@ void ALevelGameMode::BeginPlay()
 
 void ALevelGameMode::OnLevelRestart()
 {
+	CurrGameState->StartTimer();
 	CurrGameState->ResetHitTargets();
+	
 	OnTargetsReset.Broadcast();
 }
 

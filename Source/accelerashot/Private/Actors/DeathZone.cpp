@@ -3,6 +3,8 @@
 
 #include "Actors/DeathZone.h"
 
+#include "Character/PlayerCharacter.h"
+#include "Game/LevelGameMode.h"
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -30,9 +32,14 @@ void ADeathZone::BeginPlay()
 void ADeathZone::OnDeathBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	AActor* PlayerChar = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+	APlayerCharacter* PlayerChar = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	
-	//if (PlayerChar && OtherActor == PlayerChar) PlayerChar;
+	if (PlayerChar && OtherActor == PlayerChar)
+	{
+		PlayerChar->ResetPlayerState();
+		
+		Cast<ALevelGameMode>(UGameplayStatics::GetGameMode(GetWorld()))->OnLevelRestart();
+	}
 }
 
 // Called every frame

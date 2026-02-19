@@ -28,7 +28,7 @@ protected:
 public:
 	/* ----- Properties ----- */
 	UPROPERTY(BlueprintAssignable, Category = "Level Events")
-	static FOnTargetsReset OnTargetsReset;
+	FOnTargetsReset OnTargetsReset;
 	
 	/* ----- Functions ----- */	
 	void OnLevelRestart();

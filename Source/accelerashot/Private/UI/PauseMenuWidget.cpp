@@ -47,4 +47,7 @@ void UPauseMenuWidget::OnQuitClicked()
 	
 	// Go back to main menu
 	//UGameplayStatics::OpenLevelBySoftObjectPtr();
+	
+	APlayerController* SpecificPlayer = GetWorld()->GetFirstPlayerController();
+	UKismetSystemLibrary::QuitGame(GetWorld(), SpecificPlayer, EQuitPreference::Quit,true);
 }

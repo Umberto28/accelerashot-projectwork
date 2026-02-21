@@ -4,6 +4,9 @@
 #include "Character/FirstPersonPlayerController.h"
 
 #include "Blueprint/UserWidget.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
+
+class FSlateApplication;
 
 AFirstPersonPlayerController::AFirstPersonPlayerController()
 {
@@ -59,13 +62,25 @@ void AFirstPersonPlayerController::OnGamePaused()
 		case true:
 			HideHUD();
 			ShowPause();
+		
 			bShowMouseCursor = true;
+			bEnableClickEvents = true;
+			bEnableMouseOverEvents = true;
+			
+			UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx(this, WidgetPause);
+		
 			break;
 		
-		case false:
+		case false:	
 			HidePause();
 			ShowHUD();
+			
 			bShowMouseCursor = false;
+			bEnableClickEvents = false;
+			bEnableMouseOverEvents = false;
+		
+			UWidgetBlueprintLibrary::SetInputMode_GameOnly(this);
+			
 			break;
 	}
 }

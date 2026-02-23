@@ -43,3 +43,18 @@ void APlayerCharacter::ResetPlayerState()
 	// Bullets
 }
 
+void APlayerCharacter::UpdateInput(bool Enable)
+{
+	if (APlayerController* PlayerCon = Cast<APlayerController>(GetController()))
+	{
+		switch (Enable)
+		{
+			case true:
+				EnableInput(PlayerCon);
+				
+			case false:
+				DisableInput(PlayerCon);
+		}
+	}
+}
+

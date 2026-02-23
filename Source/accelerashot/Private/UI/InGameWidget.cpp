@@ -3,6 +3,8 @@
 
 #include "UI/InGameWidget.h"
 
+#include "Animation/WidgetAnimation.h"
+#include "Character/PlayerCharacter.h"
 #include "Game/LevelGameState.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetTextLibrary.h"
@@ -11,7 +13,7 @@ void UInGameWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 	
-	RefToPlayer = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+	RefToPlayer = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	
 	if (RefToPlayer)
 	{
@@ -21,9 +23,12 @@ void UInGameWidget::NativeConstruct()
 	if (ALevelGameState* GameState = Cast<ALevelGameState>(GetWorld()->GetGameState()))
 	{
 		GameState->OnTimeChanged.AddDynamic(this, &UInGameWidget::OnTimeStampChanged);
-		
 		OnTimeStampChanged(0.0f);
 	}
+	
+	OnCountdownFinishedEvent.BindDynamic(this, &UInGameWidget::EnablePlayer);
+	CountdownAnim->BindToAnimationFinished(this, OnCountdownFinishedEvent);
+	PlayAnimationForward(CountdownAnim);
 }
 
 void UInGameWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
@@ -51,4 +56,9 @@ void UInGameWidget::OnTimeStampChanged(float TimeStamp)
 			UKismetTextLibrary::Conv_IntToText(CurrTime.GetSeconds(), false, true, 2, 2),
 			UKismetTextLibrary::Conv_IntToText(CurrTime.GetFractionMilli(), false, true, 2, 2)
 		));
+}
+
+void UInGameWidget::EnablePlayer()
+{
+	RefToPlayer->UpdateInput(true);
 }

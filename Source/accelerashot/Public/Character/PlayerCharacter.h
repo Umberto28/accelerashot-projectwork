@@ -36,4 +36,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void ResetPlayerState();
+	
+	UFUNCTION(BlueprintCallable)
+	void UpdateInput(bool Enable);
 };

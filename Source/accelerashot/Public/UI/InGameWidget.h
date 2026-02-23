@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Character/PlayerCharacter.h"
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
 #include "InGameWidget.generated.h"
@@ -27,8 +28,14 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
 	UProgressBar* SpeedBar;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidgetAnim))
+	UWidgetAnimation* CountdownAnim;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	ACharacter* RefToPlayer;
+	APlayerCharacter* RefToPlayer;
+	
+	/* ----- Functions ----- */
+	FWidgetAnimationDynamicEvent OnCountdownFinishedEvent;
 	
 public:
 	/* ----- Functions ----- */	
@@ -41,4 +48,7 @@ public:
 	
 	UFUNCTION()
 	void OnTimeStampChanged(float ElapsedTime);
+	
+	UFUNCTION()
+	void EnablePlayer();
 };

@@ -18,6 +18,8 @@ void APlayerCharacter::BeginPlay()
 	
 	StartingLocation = GetActorLocation();
 	StartingRotation = GetControlRotation();
+	
+	UpdateInput(false);
 }
 
 // Called every frame

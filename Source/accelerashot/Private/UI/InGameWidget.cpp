@@ -26,9 +26,9 @@ void UInGameWidget::NativeConstruct()
 		OnTimeStampChanged(0.0f);
 	}
 	
-	// OnCountdownFinishedEvent.BindDynamic(this, &UInGameWidget::EnablePlayer);
-	// CountdownAnim->BindToAnimationFinished(this, OnCountdownFinishedEvent);
-	// PlayAnimationForward(CountdownAnim);
+	OnCountdownFinishedEvent.BindDynamic(this, &UInGameWidget::EnablePlayer);
+	BindToAnimationFinished(CountdownAnim, OnCountdownFinishedEvent);
+	PlayAnimationForward(CountdownAnim);
 }
 
 void UInGameWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)

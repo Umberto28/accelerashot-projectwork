@@ -28,7 +28,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
 	UProgressBar* SpeedBar;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidgetAnim))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Transient, meta=(BindWidgetAnim))
 	UWidgetAnimation* CountdownAnim;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)

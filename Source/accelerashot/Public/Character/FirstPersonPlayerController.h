@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "FirstPersonPlayerController.generated.h"
 
+class UInputMappingContext;
+
 /**
  * 
  */
@@ -24,6 +26,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category="WidgetUI")
 	TSubclassOf<UUserWidget> WidgetPauseClass;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputMappingContext* DefaultIMC;
 	
 	/* ----- Functions ----- */	
 	virtual void BeginPlay() override;
@@ -47,4 +52,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void OnGamePaused();
+	
+	UFUNCTION(BlueprintCallable)
+	void UpdateInput(bool Enable);
 };

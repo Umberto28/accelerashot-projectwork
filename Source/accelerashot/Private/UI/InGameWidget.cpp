@@ -4,6 +4,7 @@
 #include "UI/InGameWidget.h"
 
 #include "Animation/WidgetAnimation.h"
+#include "Character/FirstPersonPlayerController.h"
 #include "Character/PlayerCharacter.h"
 #include "Game/LevelGameState.h"
 #include "Kismet/GameplayStatics.h"
@@ -60,5 +61,5 @@ void UInGameWidget::OnTimeStampChanged(float TimeStamp)
 
 void UInGameWidget::EnablePlayer()
 {
-	RefToPlayer->UpdateInput(true);
+	if (AFirstPersonPlayerController* RefToController = Cast<AFirstPersonPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))) RefToController->UpdateInput(true);
 }

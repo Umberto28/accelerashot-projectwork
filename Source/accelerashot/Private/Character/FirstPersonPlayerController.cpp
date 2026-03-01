@@ -3,6 +3,7 @@
 
 #include "Character/FirstPersonPlayerController.h"
 
+#include "EnhancedInputSubsystems.h"
 #include "Blueprint/UserWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 
@@ -26,6 +27,11 @@ void AFirstPersonPlayerController::BeginPlay()
 		WidgetPause->AddToViewport(1);
 		WidgetPause->SetVisibility(ESlateVisibility::Hidden);
 	}
+	
+	// UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+	// Subsystem->ClearAllMappings();
+	// Subsystem->AddMappingContext(DefaultIMC, 0);
+	// UpdateInput(false);
 }
 
 void AFirstPersonPlayerController::ShowHUD() const
@@ -82,5 +88,20 @@ void AFirstPersonPlayerController::OnGamePaused()
 			UWidgetBlueprintLibrary::SetInputMode_GameOnly(this);
 			
 			break;
+	}
+}
+
+void AFirstPersonPlayerController::UpdateInput(bool Enable)
+{
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		if(Enable)
+		{
+			if (!Subsystem->HasMappingContext(DefaultIMC)) Subsystem->AddMappingContext(DefaultIMC, 0);
+		}
+		else
+		{
+			Subsystem->RemoveMappingContext(DefaultIMC);
+		}
 	}
 }

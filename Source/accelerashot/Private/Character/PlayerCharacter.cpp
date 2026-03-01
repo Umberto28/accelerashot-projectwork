@@ -3,6 +3,10 @@
 
 #include "Character/PlayerCharacter.h"
 
+#include "EnhancedInputSubsystems.h"
+#include "Character/FirstPersonPlayerController.h"
+#include "Kismet/GameplayStatics.h"
+
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -45,18 +49,20 @@ void APlayerCharacter::ResetPlayerState()
 	// Bullets
 }
 
-void APlayerCharacter::UpdateInput(bool Enable)
-{
-	if (APlayerController* PlayerCon = Cast<APlayerController>(GetController()))
+void APlayerCharacter::UpdateInput(const bool Enable)
+{	
+	if (AFirstPersonPlayerController* PlayerCon = Cast<AFirstPersonPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
 	{
+		/*UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerCon->GetLocalPlayer());
+		
 		switch (Enable)
 		{
 			case true:
-				EnableInput(PlayerCon);
+				Subsystem->AddMappingContext(DefaultIMC, 0);
 				
 			case false:
-				DisableInput(PlayerCon);
-		}
+				Subsystem->RemoveMappingContext(DefaultIMC);
+		}*/
 	}
 }
 

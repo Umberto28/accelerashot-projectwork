@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Character/FirstPersonPlayerController.h"
 #include "Character/PlayerCharacter.h"
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
@@ -33,10 +34,10 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	APlayerCharacter* RefToPlayer;
-	
+		
 	/* ----- Functions ----- */
 	FWidgetAnimationDynamicEvent OnCountdownFinishedEvent;
-	
+
 public:
 	/* ----- Functions ----- */	
 	virtual void NativeConstruct() override;

@@ -61,5 +61,9 @@ void UInGameWidget::OnTimeStampChanged(float TimeStamp)
 
 void UInGameWidget::EnablePlayer()
 {
-	if (AFirstPersonPlayerController* RefToController = Cast<AFirstPersonPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))) RefToController->UpdateInput(true);
+	if (AFirstPersonPlayerController* RefToController = Cast<AFirstPersonPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
+	{
+		RefToController->UpdateInput(true);
+		RefToPlayer->SetActorTickEnabled(true);
+	}
 }

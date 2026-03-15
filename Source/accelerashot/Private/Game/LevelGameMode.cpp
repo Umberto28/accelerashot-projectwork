@@ -3,7 +3,10 @@
 
 #include "Game/LevelGameMode.h"
 
+#include "Character/FirstPersonPlayerController.h"
 #include "Game/LevelGameState.h"
+#include "Kismet/GameplayStatics.h"
+#include "UI/CountdownWidget.h"
 
 void ALevelGameMode::BeginPlay()
 {
@@ -11,6 +14,7 @@ void ALevelGameMode::BeginPlay()
 	
 	// Initialize the level (Game state with stats, UI)
 	CurrGameState = GetGameState<ALevelGameState>();
+	CurrPlayerController = Cast<AFirstPersonPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	
 	if (CurrGameState)
 	{
@@ -21,7 +25,17 @@ void ALevelGameMode::BeginPlay()
 	// Cutscene with level overview (?)
 	
 	// Countdown
-	
+	if (WidgetCountDown)
+	{
+		WidgetCountDown->AddToViewport(1);
+		// WidgetCountDown->SetVisibility(ESlateVisibility::Hidden);
+	}
+}
+
+void ALevelGameMode::OnLevelResumed()
+{
+	CurrPlayerController->ShowHUD(true);
+	WidgetCountDown->PlayAnimationForward(WidgetCountDown->GetCountdownAnimation());
 }
 
 void ALevelGameMode::OnLevelRestart()
@@ -37,4 +51,20 @@ void ALevelGameMode::OnLevelCompleted()
 	CurrGameState->StopTimer();
 	
 	// Camera change, Score calculation, UI, deactivate input, show mouse cursor
+}
+
+void ALevelGameMode::OnCountdownCompleted()
+{
+	if(CurrPlayerController->IsPaused())
+	{
+		// Is the resume countdown
+		CurrPlayerController->OnGamePaused();
+	}
+	else
+	{
+		// Is the countdown at the beginning of the level
+		CurrPlayerController->EnableInput(CurrPlayerController);
+		CurrGameState->StartTimer();
+	}
+	
 }

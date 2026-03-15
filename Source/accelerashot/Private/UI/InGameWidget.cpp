@@ -1,10 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "UI/InGameWidget.h"
 
-#include "Animation/WidgetAnimation.h"
-#include "Character/FirstPersonPlayerController.h"
 #include "Character/PlayerCharacter.h"
 #include "Game/LevelGameState.h"
 #include "Kismet/GameplayStatics.h"
@@ -19,6 +16,7 @@ void UInGameWidget::NativeConstruct()
 	if (RefToPlayer)
 	{
 		// AddDynamic OnAmmoChanged
+		// AddDynamic OnSpeedChanged
 	}
 
 	if (ALevelGameState* GameState = Cast<ALevelGameState>(GetWorld()->GetGameState()))
@@ -26,10 +24,6 @@ void UInGameWidget::NativeConstruct()
 		GameState->OnTimeChanged.AddDynamic(this, &UInGameWidget::OnTimeStampChanged);
 		OnTimeStampChanged(0.0f);
 	}
-	
-	OnCountdownFinishedEvent.BindDynamic(this, &UInGameWidget::EnablePlayer);
-	BindToAnimationFinished(CountdownAnim, OnCountdownFinishedEvent);
-	PlayAnimationForward(CountdownAnim);
 }
 
 void UInGameWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
@@ -46,6 +40,10 @@ void UInGameWidget::OnAmmoChanged(int32 Current, int32 Max)
 		));
 }
 
+void UInGameWidget::OnSpeedChanged(float CurrentSpeed)
+{
+}
+
 void UInGameWidget::OnTimeStampChanged(float TimeStamp)
 {
 	FTimespan CurrTime = FTimespan::FromSeconds(TimeStamp);
@@ -57,13 +55,4 @@ void UInGameWidget::OnTimeStampChanged(float TimeStamp)
 			UKismetTextLibrary::Conv_IntToText(CurrTime.GetSeconds(), false, true, 2, 2),
 			UKismetTextLibrary::Conv_IntToText(CurrTime.GetFractionMilli(), false, true, 2, 2)
 		));
-}
-
-void UInGameWidget::EnablePlayer()
-{
-	if (AFirstPersonPlayerController* RefToController = Cast<AFirstPersonPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
-	{
-		RefToController->UpdateInput(true);
-		RefToPlayer->SetActorTickEnabled(true);
-	}
 }

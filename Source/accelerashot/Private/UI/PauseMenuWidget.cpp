@@ -3,16 +3,13 @@
 
 #include "UI/PauseMenuWidget.h"
 
-#include "Character/FirstPersonPlayerController.h"
+#include "Game/LevelGameMode.h"
 #include "Kismet/GameplayStatics.h"
-#include "UI/InGameWidget.h"
 
 void UPauseMenuWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-	
-	GameModeRef =  Cast<ALevelGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-	
+		
 	if (ResumeButton) ResumeButton->OnClicked.AddDynamic(this, &UPauseMenuWidget::OnResumeClicked);
 	if (RestartButton) RestartButton->OnClicked.AddDynamic(this, &UPauseMenuWidget::OnRestartClicked);
 	if (OptionsButton) OptionsButton->OnClicked.AddDynamic(this, &UPauseMenuWidget::OnOptionsClicked);
@@ -21,10 +18,15 @@ void UPauseMenuWidget::NativeConstruct()
 
 void UPauseMenuWidget::OnResumeClicked()
 {
-	if (AFirstPersonPlayerController* PlayerController = Cast<AFirstPersonPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
+	if (ALevelGameMode* GameMode = Cast<ALevelGameMode>(UGameplayStatics::GetGameMode(this)))
 	{
-		PlayerController->OnGamePaused();
+		SetVisibility(ESlateVisibility::Hidden);
+		GameMode->OnLevelResumed();
 	}
+	// if (AFirstPersonPlayerController* PlayerController = Cast<AFirstPersonPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
+	// {
+	// 	PlayerController->OnGamePaused();
+	// }
 }
 
 void UPauseMenuWidget::OnRestartClicked()

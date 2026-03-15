@@ -3,9 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "LevelGameState.h"
 #include "GameFramework/GameModeBase.h"
 #include "LevelGameMode.generated.h"
+
+class ALevelGameState;
+class AFirstPersonPlayerController;
+class UCountdownWidget;
 
 /**
  * 
@@ -22,6 +25,12 @@ protected:
 	UPROPERTY()
 	ALevelGameState* CurrGameState;
 	
+	UPROPERTY()
+	AFirstPersonPlayerController* CurrPlayerController;
+	
+	UPROPERTY(EditDefaultsOnly)
+	UCountdownWidget* WidgetCountDown;
+	
 	/* ----- Functions ----- */	
 	virtual void BeginPlay() override;
 	
@@ -31,7 +40,11 @@ public:
 	FOnTargetsReset OnTargetsReset;
 	
 	/* ----- Functions ----- */	
+	void OnLevelResumed();
+	
 	void OnLevelRestart();
 	
 	void OnLevelCompleted();
+	
+	void OnCountdownCompleted();
 };

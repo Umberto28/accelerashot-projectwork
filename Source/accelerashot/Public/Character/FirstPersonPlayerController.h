@@ -7,6 +7,8 @@
 #include "FirstPersonPlayerController.generated.h"
 
 class UInputMappingContext;
+class UInGameWidget;
+class UPauseMenuWidget;
 
 /**
  * 
@@ -21,38 +23,27 @@ public:
 	
 protected:
 	/* ----- Properties ----- */
-	UPROPERTY(EditDefaultsOnly, Category="WidgetUI")
-	TSubclassOf<UUserWidget> WidgetHUDClass;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="WidgetUI")
+	UInGameWidget* WidgetHUD;
 	
-	UPROPERTY(EditDefaultsOnly, Category="WidgetUI")
-	TSubclassOf<UUserWidget> WidgetPauseClass;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="WidgetUI")
+	UPauseMenuWidget* WidgetPause;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
 	UInputMappingContext* DefaultIMC;
 	
 	/* ----- Functions ----- */	
 	virtual void BeginPlay() override;
-	
-	void ShowHUD() const;
-	void HideHUD() const;
-	
-	void ShowPause() const;
-	void HidePause() const;
 
 public:
 	/* ----- Properties ----- */
-	UPROPERTY(BlueprintReadOnly)
-	UUserWidget* WidgetHUD;
-	
-	UPROPERTY(BlueprintReadOnly)
-	UUserWidget* WidgetPause;
 	
 	/* ----- Functions ----- */	
 	virtual void Tick(float DeltaTime) override;
 	
-	UFUNCTION(BlueprintCallable)
-	void OnGamePaused();
+	void ShowHUD(bool Show) const;
+	void ShowPause(bool Show) const;
 	
 	UFUNCTION(BlueprintCallable)
-	void UpdateInput(bool Enable);
+	void OnGamePaused();
 };

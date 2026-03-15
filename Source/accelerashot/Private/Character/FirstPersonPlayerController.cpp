@@ -6,52 +6,47 @@
 #include "EnhancedInputSubsystems.h"
 #include "Blueprint/UserWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
+#include "UI/InGameWidget.h"
+#include "UI/PauseMenuWidget.h"
 
 class FSlateApplication;
 
 AFirstPersonPlayerController::AFirstPersonPlayerController()
 {
-	
+	// Set this character to call Tick() every frame.
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 void AFirstPersonPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (WidgetHUDClass) WidgetHUD = CreateWidget(this, WidgetHUDClass);
 	if (WidgetHUD) WidgetHUD->AddToViewport(0);
 	
-	if (WidgetPauseClass) WidgetPause = CreateWidget(this, WidgetPauseClass);
 	if (WidgetPause)
 	{
 		WidgetPause->AddToViewport(1);
 		WidgetPause->SetVisibility(ESlateVisibility::Hidden);
 	}
 	
-	// UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	// Subsystem->ClearAllMappings();
-	// Subsystem->AddMappingContext(DefaultIMC, 0);
-	// UpdateInput(false);
+	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+	
+	if (Subsystem && DefaultIMC)
+	{
+		Subsystem->AddMappingContext(DefaultIMC, 0);
+	}
+	
+	DisableInput(this);
 }
 
-void AFirstPersonPlayerController::ShowHUD() const
+void AFirstPersonPlayerController::ShowHUD(bool Show) const
 {
-	if (WidgetHUD) WidgetHUD->SetVisibility(ESlateVisibility::Visible);
+	if (WidgetHUD) WidgetHUD->SetVisibility(Show ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
 }
 
-void AFirstPersonPlayerController::HideHUD() const
+void AFirstPersonPlayerController::ShowPause(bool Show) const
 {
-	if (WidgetHUD) WidgetHUD->SetVisibility(ESlateVisibility::Hidden);
-}
-
-void AFirstPersonPlayerController::ShowPause() const
-{
-	if (WidgetPause) WidgetPause->SetVisibility(ESlateVisibility::Visible);
-}
-
-void AFirstPersonPlayerController::HidePause() const
-{
-	if (WidgetPause) WidgetPause->SetVisibility(ESlateVisibility::Hidden);
+	if (WidgetPause) WidgetPause->SetVisibility(Show ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
 }
 
 void AFirstPersonPlayerController::Tick(float DeltaTime)
@@ -66,20 +61,20 @@ void AFirstPersonPlayerController::OnGamePaused()
 	switch (IsPaused())
 	{
 		case true:
-			HideHUD();
-			ShowPause();
+			ShowHUD(false);
+			ShowPause(true);
 		
 			bShowMouseCursor = true;
 			bEnableClickEvents = true;
 			bEnableMouseOverEvents = true;
-			
+		
 			UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx(this, WidgetPause);
 		
 			break;
 		
 		case false:	
-			HidePause();
-			ShowHUD();
+			ShowPause(false);
+			ShowHUD(true);
 			
 			bShowMouseCursor = false;
 			bEnableClickEvents = false;
@@ -88,20 +83,5 @@ void AFirstPersonPlayerController::OnGamePaused()
 			UWidgetBlueprintLibrary::SetInputMode_GameOnly(this);
 			
 			break;
-	}
-}
-
-void AFirstPersonPlayerController::UpdateInput(bool Enable)
-{
-	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
-	{
-		if(Enable)
-		{
-			if (!Subsystem->HasMappingContext(DefaultIMC)) Subsystem->AddMappingContext(DefaultIMC, 0);
-		}
-		else
-		{
-			Subsystem->RemoveMappingContext(DefaultIMC);
-		}
 	}
 }

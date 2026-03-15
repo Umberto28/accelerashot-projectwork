@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
-#include "Game/LevelGameMode.h"
 #include "PauseMenuWidget.generated.h"
 
 /**
@@ -31,10 +30,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(BindWidget))
 	UButton* QuitButton;
 	
-	// Class properties
-	UPROPERTY()
-	ALevelGameMode* GameModeRef;
-	
+	// Class properties	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FName MainMenuLevelName;
 	

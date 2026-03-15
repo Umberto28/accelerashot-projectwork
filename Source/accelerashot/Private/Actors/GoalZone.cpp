@@ -11,7 +11,7 @@
 // Sets default values
 AGoalZone::AGoalZone()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	// Set this actor to call Tick() every frame.
 	PrimaryActorTick.bCanEverTick = false;
 
 	RootScene = CreateDefaultSubobject<USceneComponent>("RootScene");
@@ -32,13 +32,9 @@ void AGoalZone::BeginPlay()
 void AGoalZone::OnGoalBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	AActor* PlayerChar = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
-	
-	if (PlayerChar && OtherActor == PlayerChar)
+	if (AActor* PlayerChar = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0); PlayerChar && OtherActor == PlayerChar)
 	{
-		ALevelGameMode* CurrGameMode = Cast<ALevelGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-		
-		if (CurrGameMode)
+		if (ALevelGameMode* CurrGameMode = Cast<ALevelGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 		{
 			CurrGameMode->OnLevelCompleted();
 		}

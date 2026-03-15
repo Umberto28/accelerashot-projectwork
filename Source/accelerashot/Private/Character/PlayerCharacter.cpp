@@ -11,7 +11,7 @@
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
-	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
@@ -22,8 +22,6 @@ void APlayerCharacter::BeginPlay()
 	
 	StartingLocation = GetActorLocation();
 	StartingRotation = GetControlRotation();
-	
-	UpdateInput(false);
 }
 
 // Called every frame
@@ -47,22 +45,5 @@ void APlayerCharacter::ResetPlayerState()
 	// Speed
 	
 	// Bullets
-}
-
-void APlayerCharacter::UpdateInput(const bool Enable)
-{	
-	if (AFirstPersonPlayerController* PlayerCon = Cast<AFirstPersonPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
-	{
-		/*UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerCon->GetLocalPlayer());
-		
-		switch (Enable)
-		{
-			case true:
-				Subsystem->AddMappingContext(DefaultIMC, 0);
-				
-			case false:
-				Subsystem->RemoveMappingContext(DefaultIMC);
-		}*/
-	}
 }
 

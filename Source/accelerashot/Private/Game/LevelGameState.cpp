@@ -17,7 +17,6 @@ void ALevelGameState::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 	
 	TimeStamp += DeltaSeconds;
-
 	OnTimeChanged.Broadcast(TimeStamp);
 }
 

@@ -10,11 +10,12 @@ void ALevelGameMode::BeginPlay()
 	Super::BeginPlay();
 	
 	// Initialize the level (Game state with stats, UI)
-	CurrGameState = Cast<ALevelGameState>(GetWorld()->GetGameState());
+	CurrGameState = GetGameState<ALevelGameState>();
+	
 	if (CurrGameState)
 	{
 		CurrGameState->InitLevel();
-		CurrGameState->StartTimer();
+		//CurrGameState->StartTimer();
 	}
 	
 	// Cutscene with level overview (?)

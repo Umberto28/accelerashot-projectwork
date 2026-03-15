@@ -11,8 +11,8 @@
 // Sets default values
 ADeathZone::ADeathZone()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+ 	// Set this actor to call Tick() every frame.
+	PrimaryActorTick.bCanEverTick = false;
 
 	RootScene = CreateDefaultSubobject<USceneComponent>("RootScene");
 	SetRootComponent(RootScene);
@@ -38,7 +38,10 @@ void ADeathZone::OnDeathBoxOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	{
 		PlayerChar->ResetPlayerState();
 		
-		Cast<ALevelGameMode>(UGameplayStatics::GetGameMode(GetWorld()))->OnLevelRestart();
+		if (ALevelGameMode* CurrGameMode = Cast<ALevelGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+		{
+			CurrGameMode->OnLevelRestart();
+		}
 	}
 }
 

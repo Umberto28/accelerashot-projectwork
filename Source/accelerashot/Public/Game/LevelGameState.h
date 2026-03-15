@@ -54,6 +54,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void InitLevel();
 		
+	UFUNCTION()
 	void StartTimer();
 
 	void StopTimer();

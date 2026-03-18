@@ -63,7 +63,8 @@ void AFirstPersonPlayerController::OnGamePaused()
 		case true:
 			ShowHUD(false);
 			ShowPause(true);
-		
+
+			//GetPawn()->SetActorTickEnabled(false);
 			bShowMouseCursor = true;
 			bEnableClickEvents = true;
 			bEnableMouseOverEvents = true;
@@ -75,7 +76,8 @@ void AFirstPersonPlayerController::OnGamePaused()
 		case false:	
 			ShowPause(false);
 			ShowHUD(true);
-			
+
+			//GetPawn()->SetActorTickEnabled(true);
 			bShowMouseCursor = false;
 			bEnableClickEvents = false;
 			bEnableMouseOverEvents = false;

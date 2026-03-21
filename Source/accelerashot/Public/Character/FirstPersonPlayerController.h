@@ -45,5 +45,8 @@ public:
 	void ShowPause(bool Show) const;
 	
 	UFUNCTION(BlueprintCallable)
-	void OnGamePaused();
+	void SetPauseGame();
+	
+	UFUNCTION(BlueprintCallable)
+	void OnGamePaused(bool pause);
 };

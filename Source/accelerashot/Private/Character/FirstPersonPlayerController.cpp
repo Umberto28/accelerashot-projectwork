@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Character/FirstPersonPlayerController.h"
 
 #include "EnhancedInputSubsystems.h"
@@ -37,6 +36,7 @@ void AFirstPersonPlayerController::BeginPlay()
 	}
 	
 	DisableInput(this);
+	OnGamePaused(false);
 }
 
 void AFirstPersonPlayerController::ShowHUD(bool Show) const
@@ -49,16 +49,19 @@ void AFirstPersonPlayerController::ShowPause(bool Show) const
 	if (WidgetPause) WidgetPause->SetVisibility(Show ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
 }
 
+void AFirstPersonPlayerController::SetPauseGame()
+{
+	SetPause(!IsPaused());
+}
+
 void AFirstPersonPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-void AFirstPersonPlayerController::OnGamePaused()
+void AFirstPersonPlayerController::OnGamePaused(bool pause)
 {
-	SetPause(!IsPaused());
-
-	switch (IsPaused())
+	switch (pause)
 	{
 		case true:
 			ShowHUD(false);

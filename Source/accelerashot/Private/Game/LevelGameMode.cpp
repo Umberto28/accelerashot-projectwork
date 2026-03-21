@@ -34,7 +34,7 @@ void ALevelGameMode::BeginPlay()
 
 void ALevelGameMode::OnLevelResumed()
 {
-	CurrPlayerController->ShowHUD(true);
+	CurrPlayerController->OnGamePaused(false);
 	WidgetCountDown->PlayAnimationForward(WidgetCountDown->GetCountdownAnimation());
 }
 
@@ -58,7 +58,7 @@ void ALevelGameMode::OnCountdownCompleted()
 	if(CurrPlayerController->IsPaused())
 	{
 		// Is the resume countdown
-		CurrPlayerController->OnGamePaused();
+		CurrPlayerController->SetPauseGame();
 	}
 	else
 	{

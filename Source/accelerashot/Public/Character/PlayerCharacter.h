@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoNumberChanged, int32, CurrentAmmo, int32, MaxAmmo);
+
 UCLASS()
 class ACCELERASHOT_API APlayerCharacter : public ACharacter
 {
@@ -28,6 +30,9 @@ protected:
 
 public:
 	/* ----- Properties ----- */
+
+	UPROPERTY(BlueprintCallable, Category = "Player Events")
+	FOnAmmoNumberChanged OnAmmoNumberChanged;
 	
 	/* ----- Functions ----- */	
 	virtual void Tick(float DeltaTime) override;

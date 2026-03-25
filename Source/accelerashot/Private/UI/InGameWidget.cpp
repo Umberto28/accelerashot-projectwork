@@ -15,7 +15,7 @@ void UInGameWidget::NativeConstruct()
 	
 	if (RefToPlayer)
 	{
-		// AddDynamic OnAmmoChanged
+		RefToPlayer->OnAmmoNumberChanged.AddDynamic(this, &UInGameWidget::OnAmmoChanged);
 		// AddDynamic OnSpeedChanged
 	}
 
@@ -55,4 +55,5 @@ void UInGameWidget::OnTimeStampChanged(float TimeStamp)
 			UKismetTextLibrary::Conv_IntToText(CurrTime.GetSeconds(), false, true, 2, 2),
 			UKismetTextLibrary::Conv_IntToText(CurrTime.GetFractionMilli(), false, true, 2, 2)
 		));
+
 }

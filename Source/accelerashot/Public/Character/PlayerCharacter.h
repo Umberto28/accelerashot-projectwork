@@ -4,12 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Character/CharacterInterface.h"
 #include "PlayerCharacter.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoNumberChanged, int32, CurrentAmmo, int32, MaxAmmo);
 
 UCLASS()
-class ACCELERASHOT_API APlayerCharacter : public ACharacter
+class ACCELERASHOT_API APlayerCharacter : public ACharacter, public ICharacterInterface
 {
 	GENERATED_BODY()
 
@@ -33,6 +34,9 @@ public:
 
 	UPROPERTY(BlueprintCallable, Category = "Player Events")
 	FOnAmmoNumberChanged OnAmmoNumberChanged;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool CanDash = false;
 	
 	/* ----- Functions ----- */	
 	virtual void Tick(float DeltaTime) override;

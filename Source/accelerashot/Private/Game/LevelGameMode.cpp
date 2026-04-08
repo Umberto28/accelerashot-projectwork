@@ -7,6 +7,7 @@
 #include "Game/LevelGameState.h"
 #include "Kismet/GameplayStatics.h"
 #include "UI/CountdownWidget.h"
+#include "Character/CharacterInterface.h"
 
 void ALevelGameMode::BeginPlay()
 {
@@ -65,6 +66,7 @@ void ALevelGameMode::OnCountdownCompleted()
 		// Is the countdown at the beginning of the level
 		CurrPlayerController->EnableInput(CurrPlayerController);
 		CurrPlayerController->GetPawn()->SetActorTickEnabled(true);// Player must have tick enabled to change speed
+		ICharacterInterface::Execute_DashWindow(CurrPlayerController->GetPawn(), 0.1f);
 		CurrGameState->StartTimer();
 	}
 	

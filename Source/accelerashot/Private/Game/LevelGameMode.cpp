@@ -66,7 +66,7 @@ void ALevelGameMode::OnCountdownCompleted()
 		// Is the countdown at the beginning of the level
 		CurrPlayerController->EnableInput(CurrPlayerController);
 		CurrPlayerController->GetPawn()->SetActorTickEnabled(true);// Player must have tick enabled to change speed
-		ICharacterInterface::Execute_DashWindow(CurrPlayerController->GetPawn(), 0.1f);
+		ICharacterInterface::Execute_DashWindow(CurrPlayerController->GetPawn(), 0.3f);
 		CurrGameState->StartTimer();
 	}
 	

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Character/CharacterInterface.h"
+#include "Game/LevelGameMode.h"
 #include "PlayerCharacter.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoNumberChanged, int32, CurrentAmmo, int32, MaxAmmo);
@@ -25,6 +26,8 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FRotator StartingRotation;
+
+	ALevelGameMode* RefToGameMode;
 	
 	/* ----- Functions ----- */	
 	virtual void BeginPlay() override;
@@ -45,4 +48,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void ResetPlayerState();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Player Events")
+	void PlayerFailure();
 };

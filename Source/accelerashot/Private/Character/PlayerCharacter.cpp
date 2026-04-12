@@ -22,6 +22,8 @@ void APlayerCharacter::BeginPlay()
 	
 	StartingLocation = GetActorLocation();
 	StartingRotation = GetControlRotation();
+
+	RefToGameMode = Cast<ALevelGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 }
 
 // Called every frame
@@ -41,6 +43,7 @@ void APlayerCharacter::ResetPlayerState()
 	// Transform
 	SetActorLocation(StartingLocation);
 	GetController()->SetControlRotation(StartingRotation);
+	RefToGameMode->OnLevelRestart();
 	
 	// Speed
 	

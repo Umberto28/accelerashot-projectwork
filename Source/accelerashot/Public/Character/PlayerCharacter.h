@@ -49,6 +49,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ResetPlayerState();
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "Player Events")
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Player Events")
 	void PlayerFailure();
 };

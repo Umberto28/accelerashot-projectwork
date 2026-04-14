@@ -30,6 +30,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly)
 	UCountdownWidget* WidgetCountDown;
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 FinalScore;
 	
 	/* ----- Functions ----- */	
 	virtual void BeginPlay() override;
@@ -38,6 +41,12 @@ public:
 	/* ----- Properties ----- */
 	UPROPERTY(BlueprintAssignable, Category = "Level Events")
 	FOnTargetsReset OnTargetsReset;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring System")
+	float LevelTimeObjective = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring System")
+	int32 LevelTargetsObjective = 0;
 	
 	/* ----- Functions ----- */	
 	void OnLevelResumed();

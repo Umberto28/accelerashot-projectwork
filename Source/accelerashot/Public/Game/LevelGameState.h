@@ -31,9 +31,6 @@ protected:
 	UPROPERTY()
 	int32 HitTarget;
 	
-	UPROPERTY()
-	float FinalScore;
-	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<AActor> TargetClass;
 	
@@ -57,7 +54,14 @@ public:
 	UFUNCTION()
 	void StartTimer();
 
-	void StopTimer();
-	
+	float StopTimer();
+
+	UFUNCTION()
+	int32 CalculateScore(float TimeObjective, int32 TargetsObjective);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateHitTargets();
+
 	void ResetHitTargets();
+
 };

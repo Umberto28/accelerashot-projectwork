@@ -49,9 +49,12 @@ void ALevelGameMode::OnLevelRestart()
 
 void ALevelGameMode::OnLevelCompleted()
 {
-	CurrGameState->StopTimer();
+	float TimeStamp = CurrGameState->StopTimer();
+
+	// Score Calculation
+	FinalScore = CurrGameState->CalculateScore(LevelTimeObjective, LevelTargetsObjective);
 	
-	// Camera change, Score calculation, UI, deactivate input, show mouse cursor
+	// Camera change, UI, deactivate input, show mouse cursor
 }
 
 void ALevelGameMode::OnCountdownCompleted()

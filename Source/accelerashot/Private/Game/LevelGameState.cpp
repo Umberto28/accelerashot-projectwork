@@ -24,7 +24,6 @@ void ALevelGameState::InitLevel()
 {
 	TimeStamp = 0.0f;
 	HitTarget = 0;
-	FinalScore = 0.0f;
 	
 	if (TargetClass)
 	{
@@ -39,12 +38,27 @@ void ALevelGameState::StartTimer()
 	SetActorTickEnabled(true);
 }
 
-void ALevelGameState::StopTimer()
+float ALevelGameState::StopTimer()
 {
 	SetActorTickEnabled(false);
+	return TimeStamp;
+}
+
+void ALevelGameState::UpdateHitTargets()
+{
+	HitTarget += 1;
 }
 
 void ALevelGameState::ResetHitTargets()
 {
 	HitTarget = 0;
+}
+
+int32 ALevelGameState::CalculateScore(float TimeObjective, int32 TargetsObjective)
+{
+	int32 FinalScore = 0;
+	int32 TimeScore = (4500.f - FMath::Clamp((TimeStamp - TimeObjective) * 100, 0.f, 4500.f));
+	int32 TargetScore = (100 * HitTarget);
+	FinalScore += TimeScore + TargetScore;
+	return FinalScore;
 }

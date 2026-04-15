@@ -31,6 +31,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "EnhancedInput")
 	UInputAction* AnyKeyAction;
 	
+	UPROPERTY(EditDefaultsOnly, Category = "EnhancedInput")
+	UInputAction* TurnLeftAction;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "EnhancedInput")
+	UInputAction* TurnRightAction;
+	
 	/* ----- Functions ----- */	
 	virtual void BeginPlay() override;
 
@@ -41,4 +47,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 	void OnGameStart();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnTurnLeft();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnTurnRight();
 };

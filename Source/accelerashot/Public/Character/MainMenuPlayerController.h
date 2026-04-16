@@ -30,13 +30,7 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "EnhancedInput")
 	UInputAction* AnyKeyAction;
-	
-	UPROPERTY(EditDefaultsOnly, Category = "EnhancedInput")
-	UInputAction* TurnLeftAction;
-	
-	UPROPERTY(EditDefaultsOnly, Category = "EnhancedInput")
-	UInputAction* TurnRightAction;
-	
+		
 	/* ----- Functions ----- */	
 	virtual void BeginPlay() override;
 
@@ -48,9 +42,6 @@ public:
 	
 	void OnGameStart();
 	
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnTurnLeft();
-	
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnTurnRight();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnSideChange(float rotationMultiplier);
 };

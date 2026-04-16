@@ -26,8 +26,8 @@ void AMainMenuPlayerController::BeginPlay()
 		if(UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent))
 		{
 			EnhancedInputComponent->BindAction(AnyKeyAction, ETriggerEvent::Started, this, &AMainMenuPlayerController::OnGameStart);
-			EnhancedInputComponent->BindAction(TurnLeftAction, ETriggerEvent::Started, this, &AMainMenuPlayerController::OnTurnLeft);
-			EnhancedInputComponent->BindAction(TurnRightAction, ETriggerEvent::Started, this, &AMainMenuPlayerController::OnTurnRight);
+			//EnhancedInputComponent->BindAction(TurnLeftAction, ETriggerEvent::Started, this, &AMainMenuPlayerController::OnTurnLeft);
+			//EnhancedInputComponent->BindAction(TurnRightAction, ETriggerEvent::Started, this, &AMainMenuPlayerController::OnTurnRight);
 		}
 	}
 	

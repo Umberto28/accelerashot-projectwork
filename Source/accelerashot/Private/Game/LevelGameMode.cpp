@@ -41,10 +41,10 @@ void ALevelGameMode::OnLevelResumed()
 
 void ALevelGameMode::OnLevelRestart()
 {
-	CurrGameState->StartTimer();
 	CurrGameState->ResetHitTargets();
-	
 	OnTargetsReset.Broadcast();
+
+	WidgetCountDown->PlayAnimationForward(WidgetCountDown->GetCountdownAnimation());
 }
 
 void ALevelGameMode::OnLevelCompleted()

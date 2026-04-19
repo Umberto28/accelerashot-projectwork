@@ -49,11 +49,11 @@ public:
 	int32 LevelTargetsObjective = 0;
 	
 	/* ----- Functions ----- */	
-	void OnLevelResumed();
+	void OnLevelResumed() const;
 	
-	void OnLevelRestart();
+	void OnLevelRestart() const;
 	
 	void OnLevelCompleted();
 	
-	void OnCountdownCompleted();
+	void OnCountdownCompleted() const;
 };

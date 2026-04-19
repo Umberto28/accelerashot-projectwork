@@ -55,9 +55,11 @@ public:
 	void StartTimer();
 
 	float StopTimer();
+	
+	void ResetTimer();
 
 	UFUNCTION()
-	int32 CalculateScore(float TimeObjective, int32 TargetsObjective);
+	int32 CalculateScore(float TimeObjective, int32 TargetsObjective) const;
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateHitTargets();

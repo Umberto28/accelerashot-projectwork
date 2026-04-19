@@ -20,7 +20,6 @@ void ALevelGameMode::BeginPlay()
 	if (CurrGameState)
 	{
 		CurrGameState->InitLevel();
-		//CurrGameState->StartTimer();
 	}
 	
 	// Cutscene with level overview (?)
@@ -33,17 +32,22 @@ void ALevelGameMode::BeginPlay()
 	}
 }
 
-void ALevelGameMode::OnLevelResumed()
+void ALevelGameMode::OnLevelResumed() const
 {
 	CurrPlayerController->OnGamePaused(false);
 	WidgetCountDown->PlayAnimationForward(WidgetCountDown->GetCountdownAnimation());
 }
 
-void ALevelGameMode::OnLevelRestart()
+void ALevelGameMode::OnLevelRestart() const
 {
+	CurrPlayerController->DisableInput(CurrPlayerController);
+	
 	CurrGameState->ResetHitTargets();
 	OnTargetsReset.Broadcast();
 
+	CurrGameState->StopTimer();
+	CurrGameState->ResetTimer();
+	
 	WidgetCountDown->PlayAnimationForward(WidgetCountDown->GetCountdownAnimation());
 }
 
@@ -59,7 +63,7 @@ void ALevelGameMode::OnLevelCompleted()
 	// Camera change, UI, show mouse cursor
 }
 
-void ALevelGameMode::OnCountdownCompleted()
+void ALevelGameMode::OnCountdownCompleted() const
 {
 	if(CurrPlayerController->IsPaused())
 	{
@@ -72,6 +76,7 @@ void ALevelGameMode::OnCountdownCompleted()
 		CurrPlayerController->EnableInput(CurrPlayerController);
 		CurrPlayerController->GetPawn()->SetActorTickEnabled(true);// Player must have tick enabled to change speed
 		ICharacterInterface::Execute_DashWindow(CurrPlayerController->GetPawn(), 0.3f);
+		CurrGameState->ResetTimer();
 		CurrGameState->StartTimer();
 	}
 	

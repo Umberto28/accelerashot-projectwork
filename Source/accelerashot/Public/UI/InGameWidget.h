@@ -48,4 +48,7 @@ public:
 	
 	UFUNCTION()
 	void OnTimeStampChanged(float ElapsedTime);
+	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnTargetPointed(bool pointed);
 };

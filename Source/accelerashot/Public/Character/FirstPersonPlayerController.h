@@ -22,10 +22,7 @@ public:
 	AFirstPersonPlayerController();
 	
 protected:
-	/* ----- Properties ----- */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="WidgetUI")
-	UInGameWidget* WidgetHUD;
-	
+	/* ----- Properties ----- */	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="WidgetUI")
 	UPauseMenuWidget* WidgetPause;
 	
@@ -37,6 +34,8 @@ protected:
 
 public:
 	/* ----- Properties ----- */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="WidgetUI")
+	UInGameWidget* WidgetHUD;
 	
 	/* ----- Functions ----- */	
 	virtual void Tick(float DeltaTime) override;

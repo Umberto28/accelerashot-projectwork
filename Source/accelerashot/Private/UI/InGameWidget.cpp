@@ -16,7 +16,7 @@ void UInGameWidget::NativeConstruct()
 	if (RefToPlayer)
 	{
 		RefToPlayer->OnAmmoNumberChanged.AddDynamic(this, &UInGameWidget::OnAmmoChanged);
-		// AddDynamic OnSpeedChanged
+		RefToPlayer->OnSpeedChanged.AddDynamic(this, &UInGameWidget::OnSpeedChanged);
 	}
 
 	if (ALevelGameState* GameState = Cast<ALevelGameState>(GetWorld()->GetGameState()))
@@ -42,6 +42,7 @@ void UInGameWidget::OnAmmoChanged(int32 Current, int32 Max)
 
 void UInGameWidget::OnSpeedChanged(float CurrentSpeed)
 {
+	SpeedBar->SetPercent(CurrentSpeed);
 }
 
 void UInGameWidget::OnTimeStampChanged(float TimeStamp)

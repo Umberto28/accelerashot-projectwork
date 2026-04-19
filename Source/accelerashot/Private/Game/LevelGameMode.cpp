@@ -8,6 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "UI/CountdownWidget.h"
 #include "Character/CharacterInterface.h"
+#include "Character/PlayerCharacter.h"
 
 void ALevelGameMode::BeginPlay()
 {
@@ -41,6 +42,8 @@ void ALevelGameMode::OnLevelResumed() const
 void ALevelGameMode::OnLevelRestart() const
 {
 	CurrPlayerController->DisableInput(CurrPlayerController);
+	CurrPlayerController->GetPawn()->SetActorTickEnabled(false);
+	
 	
 	CurrGameState->ResetHitTargets();
 	OnTargetsReset.Broadcast();

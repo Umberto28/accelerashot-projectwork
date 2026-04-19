@@ -9,6 +9,8 @@
 #include "PlayerCharacter.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoNumberChanged, int32, CurrentAmmo, int32, MaxAmmo);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSpeedChanged, float, CurrentSpeed);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnTargetPoint);
 
 UCLASS()
 class ACCELERASHOT_API APlayerCharacter : public ACharacter, public ICharacterInterface
@@ -27,7 +29,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FRotator StartingRotation;
 
+	UPROPERTY()
 	ALevelGameMode* RefToGameMode;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float CurrentTopSpeed;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float MaxSpeed;
 	
 	/* ----- Functions ----- */	
 	virtual void BeginPlay() override;
@@ -37,6 +46,9 @@ public:
 
 	UPROPERTY(BlueprintCallable, Category = "Player Events")
 	FOnAmmoNumberChanged OnAmmoNumberChanged;
+	
+	UPROPERTY(BlueprintCallable, Category = "Player Events")
+	FOnSpeedChanged OnSpeedChanged;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool CanDash = false;

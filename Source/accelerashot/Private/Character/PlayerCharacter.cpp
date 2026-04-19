@@ -24,12 +24,15 @@ void APlayerCharacter::BeginPlay()
 	StartingRotation = GetControlRotation();
 
 	RefToGameMode = Cast<ALevelGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+	SetActorTickEnabled(false);
+	OnSpeedChanged.Broadcast(CurrentTopSpeed/MaxSpeed);
 }
 
 // Called every frame
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	OnSpeedChanged.Broadcast(CurrentTopSpeed/MaxSpeed);
 }
 
 // Called to bind functionality to input
@@ -43,10 +46,12 @@ void APlayerCharacter::ResetPlayerState()
 	// Transform
 	SetActorLocation(StartingLocation);
 	GetController()->SetControlRotation(StartingRotation);
-	RefToGameMode->OnLevelRestart();
 	
-	// Speed
+	CurrentTopSpeed = 800.0f;
+	OnSpeedChanged.Broadcast(CurrentTopSpeed/MaxSpeed);
 	
 	// Bullets
+	
+	RefToGameMode->OnLevelRestart();
 }
 

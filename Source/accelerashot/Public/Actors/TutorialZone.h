@@ -26,7 +26,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UBoxComponent* TutorialBox;
 
-	bool bIsTutorialActive = false;
+	UPROPERTY(BlueprintReadWrite)
+	bool bIsTutorialActivated = false;
 
 	AFirstPersonPlayerController* RefToPlayerCtrl;
 

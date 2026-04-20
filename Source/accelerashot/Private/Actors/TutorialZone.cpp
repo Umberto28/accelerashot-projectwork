@@ -40,12 +40,24 @@ void ATutorialZone::OnTutorialBoxOverlap(UPrimitiveComponent* OverlappedComponen
 	if (AActor* PlayerChar = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0); PlayerChar && OtherActor == PlayerChar)
 	{
 		RefToPlayerCtrl = Cast<AFirstPersonPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+		if (!RefToPlayerCtrl)
+		{
+			return;
+		}
 		RefToPlayerCtrl->SetPause(true);
-		bIsTutorialActive = true;
+		bIsTutorialActivated = true;
+		EnableInput(RefToPlayerCtrl);
+
+		//UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx(this, WidgetPause);
 	}
 }
 
 void ATutorialZone::CloseTutorial()
 {
 	RefToPlayerCtrl->SetPause(false);
+
+	//UWidgetBlueprintLibrary::SetInputMode_GameOnly(this);
+	
+	DisableInput(RefToPlayerCtrl);
+	Destroy();
 }

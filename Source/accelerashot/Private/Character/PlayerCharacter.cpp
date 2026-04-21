@@ -6,6 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Character/FirstPersonPlayerController.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 // Sets default values
@@ -44,13 +45,15 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void APlayerCharacter::ResetPlayerState()
 {
 	// Transform
+	GetCharacterMovement()->Velocity = FVector::ZeroVector;
 	SetActorLocation(StartingLocation);
 	GetController()->SetControlRotation(StartingRotation);
 	
 	CurrentTopSpeed = 800.0f;
 	OnSpeedChanged.Broadcast(CurrentTopSpeed/MaxSpeed);
-	
-	// Bullets
+
+	//Calls Blueprint section (causes infinite loop?)
+	PlayerFailure();
 	
 	RefToGameMode->OnLevelRestart();
 }

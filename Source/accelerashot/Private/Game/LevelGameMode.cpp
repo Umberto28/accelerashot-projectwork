@@ -63,11 +63,12 @@ void ALevelGameMode::OnLevelCompleted()
 	CurrPlayerController->GetPawn()->SetActorTickEnabled(false);
 
 	//Camera change
-	if (const AActor* VictoryCamera = UGameplayStatics::GetActorOfClass(this, ACameraActor::StaticClass()))
+	if (AActor* VictoryCamera = UGameplayStatics::GetActorOfClass(this, ACameraActor::StaticClass()))
 	{
 		ACharacter* Player = UGameplayStatics::GetPlayerCharacter(this, 0);
 		Player->GetCharacterMovement()->Velocity = FVector::ZeroVector;
-		Player->SetActorLocationAndRotation(VictoryCamera->GetActorLocation(), FRotator(0.0f, 0.0f, 90.0f));
+		// Player->SetActorLocationAndRotation(VictoryCamera->GetActorLocation(), FRotator(0.0f, 0.0f, 90.0f));
+		CurrPlayerController->SetViewTarget(VictoryCamera);
 	}
 	
 	// Score Calculation (redo with a struct?)

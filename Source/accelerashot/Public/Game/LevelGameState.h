@@ -28,7 +28,7 @@ protected:
 	UPROPERTY()
 	int32 TotalTarget;
 	
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 HitTarget;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)

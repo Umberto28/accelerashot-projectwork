@@ -63,7 +63,7 @@ int32 ALevelGameState::CalculateScore(float TimeObjective, int32 TargetsObjectiv
 {
 	int32 FinalScore = 0;
 	int32 TimeScore = (5000.f - FMath::Clamp((TimeStamp - TimeObjective) * 200, 0.f, 4500.f));
-	int32 TargetScore = (50 * HitTarget);
+	int32 TargetScore = 0; //(50 * HitTarget);
 	FinalScore += TimeScore + TargetScore;
 	return FinalScore;
 }

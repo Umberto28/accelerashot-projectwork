@@ -32,7 +32,7 @@ void AMainMenuPlayerController::BeginPlay()
 	}
 	
 	SetInputMode(FInputModeGameOnly());
-	ConsoleCommand("r.ScreenPercentage 200");
+	// ConsoleCommand("r.ScreenPercentage 200");
 }
 
 void AMainMenuPlayerController::Tick(float DeltaTime)

@@ -3,6 +3,7 @@
 
 #include "Game/LevelGameMode.h"
 
+#include "Camera/CameraActor.h"
 #include "Character/FirstPersonPlayerController.h"
 #include "Game/LevelGameState.h"
 #include "Kismet/GameplayStatics.h"
@@ -10,6 +11,7 @@
 #include "UI/InGameWidget.h"
 #include "Character/CharacterInterface.h"
 #include "Character/PlayerCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 void ALevelGameMode::BeginPlay()
 {
@@ -45,7 +47,6 @@ void ALevelGameMode::OnLevelRestart() const
 	CurrPlayerController->DisableInput(CurrPlayerController);
 	CurrPlayerController->GetPawn()->SetActorTickEnabled(false);
 	
-	
 	CurrGameState->ResetHitTargets();
 	OnTargetsReset.Broadcast();
 
@@ -62,7 +63,13 @@ void ALevelGameMode::OnLevelCompleted()
 	CurrPlayerController->GetPawn()->SetActorTickEnabled(false);
 
 	//Camera change
-
+	if (const AActor* VictoryCamera = UGameplayStatics::GetActorOfClass(this, ACameraActor::StaticClass()))
+	{
+		ACharacter* Player = UGameplayStatics::GetPlayerCharacter(this, 0);
+		Player->GetCharacterMovement()->Velocity = FVector::ZeroVector;
+		Player->SetActorLocationAndRotation(VictoryCamera->GetActorLocation(), FRotator(0.0f, 0.0f, 90.0f));
+	}
+	
 	// Score Calculation (redo with a struct?)
 	FinalScore = CurrGameState->CalculateScore(LevelTimeObjective, LevelTargetsObjective);
 
@@ -91,6 +98,9 @@ void ALevelGameMode::OnCountdownCompleted() const
 		ICharacterInterface::Execute_DashWindow(CurrPlayerController->GetPawn(), 0.3f);
 		CurrGameState->ResetTimer();
 		CurrGameState->StartTimer();
+
+		const ACharacter* Player = UGameplayStatics::GetPlayerCharacter(this, 0);
+		Player->GetCharacterMovement()->Velocity = FVector::ZeroVector;
 	}
 	
 }

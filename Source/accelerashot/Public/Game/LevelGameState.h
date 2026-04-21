@@ -22,7 +22,7 @@ public:
 	
 protected:
 	/* ----- Properties ----- */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	float TimeStamp;
 	
 	UPROPERTY()
@@ -44,6 +44,15 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Level Events")
 	FOnScoreChanged OnScoreChanged;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 FinalScore;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 TimeScore;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 TargetScore;
 	
 	/* ----- Functions ----- */	
 	virtual void Tick(float DeltaSeconds) override;
@@ -59,7 +68,10 @@ public:
 	void ResetTimer();
 
 	UFUNCTION()
-	int32 CalculateScore(float TimeObjective, int32 TargetsObjective) const;
+	int32 CalculateScore(float TimeObjective, int32 TargetsObjective);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void DisplayScore();
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateHitTargets();

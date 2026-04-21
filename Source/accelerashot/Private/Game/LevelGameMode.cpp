@@ -7,6 +7,7 @@
 #include "Game/LevelGameState.h"
 #include "Kismet/GameplayStatics.h"
 #include "UI/CountdownWidget.h"
+#include "UI/InGameWidget.h"
 #include "Character/CharacterInterface.h"
 #include "Character/PlayerCharacter.h"
 
@@ -60,10 +61,19 @@ void ALevelGameMode::OnLevelCompleted()
 	CurrPlayerController->DisableInput(CurrPlayerController);
 	CurrPlayerController->GetPawn()->SetActorTickEnabled(false);
 
-	// Score Calculation
+	//Camera change
+
+	// Score Calculation (redo with a struct?)
 	FinalScore = CurrGameState->CalculateScore(LevelTimeObjective, LevelTargetsObjective);
+
+	// UI
+	CurrPlayerController->WidgetHUD->SetVisibility(ESlateVisibility::Hidden);
+	CurrGameState->DisplayScore();
 	
-	// Camera change, UI, show mouse cursor
+	// Show mouse cursor
+	CurrPlayerController->bShowMouseCursor = true;
+	CurrPlayerController->bEnableClickEvents = true;
+	CurrPlayerController->bEnableMouseOverEvents = true;
 }
 
 void ALevelGameMode::OnCountdownCompleted() const

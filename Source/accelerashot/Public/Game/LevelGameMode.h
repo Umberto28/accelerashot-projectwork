@@ -56,4 +56,5 @@ public:
 	void OnLevelCompleted();
 	
 	void OnCountdownCompleted() const;
+
 };

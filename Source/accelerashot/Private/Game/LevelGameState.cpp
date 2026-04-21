@@ -59,11 +59,12 @@ void ALevelGameState::ResetHitTargets()
 	HitTarget = 0;
 }
 
-int32 ALevelGameState::CalculateScore(float TimeObjective, int32 TargetsObjective) const
+int32 ALevelGameState::CalculateScore(float TimeObjective, int32 TargetsObjective)
 {
-	int32 FinalScore = 0;
-	int32 TimeScore = (5000.f - FMath::Clamp((TimeStamp - TimeObjective) * 200, 0.f, 4500.f));
-	int32 TargetScore = 0; //(50 * HitTarget);
-	FinalScore += TimeScore + TargetScore;
+	TimeScore = (5000.f - FMath::Clamp((TimeStamp - TimeObjective) * 200, 0.f, 4500.f));
+	TargetScore = 0; //(50 * HitTarget);
+
+	FinalScore = TimeScore + TargetScore;
+
 	return FinalScore;
 }

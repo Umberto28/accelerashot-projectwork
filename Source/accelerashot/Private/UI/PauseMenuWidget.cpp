@@ -13,7 +13,7 @@ void UPauseMenuWidget::NativeConstruct()
 	if (ResumeButton) ResumeButton->OnClicked.AddDynamic(this, &UPauseMenuWidget::OnResumeClicked);
 	if (RestartButton) RestartButton->OnClicked.AddDynamic(this, &UPauseMenuWidget::OnRestartClicked);
 	if (OptionsButton) OptionsButton->OnClicked.AddDynamic(this, &UPauseMenuWidget::OnOptionsClicked);
-	if (QuitButton) QuitButton->OnClicked.AddDynamic(this, &UPauseMenuWidget::OnQuitClicked);
+	//if (QuitButton) QuitButton->OnClicked.AddDynamic(this, &UPauseMenuWidget::OnQuitClicked);
 }
 
 void UPauseMenuWidget::OnResumeClicked()
@@ -42,6 +42,7 @@ void UPauseMenuWidget::OnOptionsClicked()
 	
 }
 
+/* Temporarily moved to Blueprint
 void UPauseMenuWidget::OnQuitClicked()
 {
 	// Get ref to main menu level from the game instance
@@ -53,3 +54,4 @@ void UPauseMenuWidget::OnQuitClicked()
 	APlayerController* SpecificPlayer = GetWorld()->GetFirstPlayerController();
 	UKismetSystemLibrary::QuitGame(GetWorld(), SpecificPlayer, EQuitPreference::Quit,true);
 }
+*/

@@ -50,6 +50,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void OnOptionsClicked();
 	
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnQuitClicked();
+	//UFUNCTION(BlueprintImplementableEvent)
+	//void OnQuitClicked();
 };
